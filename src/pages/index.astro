@@ -1,7 +1,8 @@
 ---
 export const prerender = false;
 
-return new Response("Hello there", {
-  headers: { "Content-Type": "text/plain" }
+return new Response(null, {
+  status: 301,
+  headers: { Location: "/feed/xml" }
 });
 ---
