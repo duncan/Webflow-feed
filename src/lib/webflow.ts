@@ -19,6 +19,12 @@ interface WebflowCollection {
   slug: string;
 }
 
+interface WebflowImage {
+  fileId: string;
+  url: string;
+  alt: string | null;
+}
+
 interface WebflowCollectionItem {
   id: string;
   fieldData: {
@@ -28,6 +34,7 @@ interface WebflowCollectionItem {
     lede?: string;
     "post-body"?: string;
     url?: string;
+    "hero-image"?: WebflowImage;
     [key: string]: unknown;
   };
 }
@@ -48,8 +55,13 @@ export interface FeedItem {
   summary?: string;
   contentHtml?: string;
   externalUrl?: string;
+  image?: string;
   pubDate: Date;
   collection: "posts" | "links";
+}
+
+function getResizedImageUrl(url: string): string {
+  return `${url}?w=800&q=80`;
 }
 
 async function webflowFetch<T>(
@@ -113,6 +125,7 @@ export async function getFeedItems(
     const posts = await getCollectionItems(postsCollection.id, apiToken, 10);
     for (const post of posts) {
       const postUrl = `https://duncan.dev/post/${post.fieldData.slug}`;
+      const heroImage = post.fieldData["hero-image"];
       items.push({
         id: postUrl,
         url: postUrl,
@@ -120,6 +133,7 @@ export async function getFeedItems(
         slug: post.fieldData.slug,
         summary: post.fieldData.lede ? stripHtml(post.fieldData.lede) : undefined,
         contentHtml: post.fieldData["post-body"],
+        image: heroImage?.url ? getResizedImageUrl(heroImage.url) : undefined,
         pubDate: new Date(post.fieldData["publication-date"] || Date.now()),
         collection: "posts",
       });
@@ -147,6 +161,5 @@ export async function getFeedItems(
   // Sort all items by publication date, newest first
   items.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
 
-  // Return only the 10 most recent
-  return items.slice(0, 10);
+  return items;
 }

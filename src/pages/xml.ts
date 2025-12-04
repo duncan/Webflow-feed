@@ -30,11 +30,14 @@ export const GET: APIRoute = async ({ locals }) => {
         const externalUrlLink = item.externalUrl
           ? `\n    <link rel="related" href="${escapeXml(item.externalUrl)}" />`
           : "";
+        const imageLink = item.image
+          ? `\n    <link rel="enclosure" href="${escapeXml(item.image)}" type="image/jpeg" />`
+          : "";
 
         return `  <entry>
     <id>${escapeXml(item.id)}</id>
     <title>${escapeXml(item.name)}</title>
-    <link rel="alternate" href="${escapeXml(item.url)}" />${externalUrlLink}
+    <link rel="alternate" href="${escapeXml(item.url)}" />${externalUrlLink}${imageLink}
     <published>${item.pubDate.toISOString()}</published>
     <updated>${item.pubDate.toISOString()}</updated>${item.summary ? `\n    <summary>${escapeXml(item.summary)}</summary>` : ""}${item.contentHtml ? `\n    <content type="html"><![CDATA[${item.contentHtml}]]></content>` : ""}
   </entry>`;

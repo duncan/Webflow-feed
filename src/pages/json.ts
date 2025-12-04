@@ -38,6 +38,7 @@ export const GET: APIRoute = async ({ locals }) => {
         title: item.name,
         url: item.url,
         ...(item.externalUrl && { external_url: item.externalUrl }),
+        ...(item.image && { image: item.image }),
         ...(item.summary && { summary: item.summary }),
         ...(item.contentHtml && { content_html: item.contentHtml }),
         date_published: item.pubDate.toISOString(),
