@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getFeedItems } from "../lib/webflow";
+import { getFeedItems, RateLimitError } from "../lib/webflow";
 
 export const GET: APIRoute = async ({ locals }) => {
   const runtime = (locals as any).runtime;
@@ -51,6 +51,18 @@ export const GET: APIRoute = async ({ locals }) => {
       },
     });
   } catch (error) {
+    if (error instanceof RateLimitError) {
+      return new Response(
+        JSON.stringify({ error: "Rate limit exceeded" }),
+        {
+          status: 429,
+          headers: {
+            "Content-Type": "application/json",
+            "Retry-After": error.retryAfter,
+          },
+        }
+      );
+    }
     return new Response(
       JSON.stringify({ error: String(error) }),
       { status: 500, headers: { "Content-Type": "application/json" } }

@@ -64,6 +64,16 @@ function getResizedImageUrl(url: string): string {
   return `${url}?w=800&q=80`;
 }
 
+export class RateLimitError extends Error {
+  retryAfter: string;
+
+  constructor(retryAfter: string) {
+    super("Rate limit exceeded");
+    this.name = "RateLimitError";
+    this.retryAfter = retryAfter;
+  }
+}
+
 async function webflowFetch<T>(
   endpoint: string,
   apiToken: string
@@ -74,6 +84,11 @@ async function webflowFetch<T>(
       "Content-Type": "application/json",
     },
   });
+
+  if (response.status === 429) {
+    const retryAfter = response.headers.get("Retry-After") || "60";
+    throw new RateLimitError(retryAfter);
+  }
 
   if (!response.ok) {
     throw new Error(`Webflow API error: ${response.status} ${response.statusText}`);

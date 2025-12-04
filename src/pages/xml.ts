@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getFeedItems } from "../lib/webflow";
+import { getFeedItems, RateLimitError } from "../lib/webflow";
 
 function escapeXml(str: string): string {
   return str
@@ -67,6 +67,12 @@ ${entries}
       },
     });
   } catch (error) {
+    if (error instanceof RateLimitError) {
+      return new Response("Rate limit exceeded", {
+        status: 429,
+        headers: { "Retry-After": error.retryAfter },
+      });
+    }
     return new Response(`Error: ${String(error)}`, { status: 500 });
   }
 };
