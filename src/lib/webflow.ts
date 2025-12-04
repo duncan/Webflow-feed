@@ -126,14 +126,20 @@ export async function getFeedItems(
     for (const post of posts) {
       const postUrl = `https://duncan.dev/post/${post.fieldData.slug}`;
       const heroImage = post.fieldData["hero-image"];
+      const imageUrl = heroImage?.url ? getResizedImageUrl(heroImage.url) : undefined;
+      const largeImageUrl = heroImage?.url ? `${heroImage.url}?w=1200&q=80` : undefined;
+      const imageHtml = largeImageUrl
+        ? `<p><img src="${largeImageUrl}" alt="${heroImage?.alt || post.fieldData.name}" /></p>`
+        : "";
+      const bodyHtml = post.fieldData["post-body"] || "";
       items.push({
         id: postUrl,
         url: postUrl,
         name: post.fieldData.name,
         slug: post.fieldData.slug,
         summary: post.fieldData.lede ? stripHtml(post.fieldData.lede) : undefined,
-        contentHtml: post.fieldData["post-body"],
-        image: heroImage?.url ? getResizedImageUrl(heroImage.url) : undefined,
+        contentHtml: imageHtml + bodyHtml,
+        image: imageUrl,
         pubDate: new Date(post.fieldData["publication-date"] || Date.now()),
         collection: "posts",
       });
