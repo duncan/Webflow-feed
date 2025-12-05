@@ -1,6 +1,6 @@
 # Webflow Feed
 
-This is a Webflow Cloud application that generates JSON Feed and Atom feeds from Webflow CMS content for [duncan.dev](https://duncan.dev). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
+This is a Webflow Cloud application that generates JSON Feed and Atom feeds from Webflow CMS content for the Webflow version of [duncan.dev](https://duncan.dev) (not yet published). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
 
 This project was created using the Webflow tool and the Astro starter template.
 
@@ -52,3 +52,5 @@ npx webflow deploy
 **What’s this JSON feed you speak of?** [JSON Feed](https://www.jsonfeed.org/) is a modernized format for feeds. It's simpler to write and consume.
 
 **Are feeds still important?** It’s true that RSS isn’t as used as it used to be. In particular, many people moved to discovering and following content via Twitter and the other socials. But, feeds are still useful for a lot of people.
+
+**Why Astro?** Currently, Webflow Cloud supports Astro and Next. The functionality in this app is so simple it could just be a straight up Cloudflare Worker. Hopefully Webflow Cloud will be able to do that soon.
