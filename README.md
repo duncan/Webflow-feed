@@ -1,6 +1,6 @@
 # Webflow Feed
 
-A Webflow Cloud appliation that generates JSON Feed and Atom feeds from Webflow CMS content for [duncan.dev](https://duncan.dev). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
+This is a Webflow Cloud application that generates JSON Feed and Atom feeds from Webflow CMS content for [duncan.dev](https://duncan.dev). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
 
 This project was created using the Webflow tool and the Astro starter template.
 
@@ -42,3 +42,13 @@ You’ll need to ensure that the `WEBFLOW_SITE_ID` and `WEBFLOW_SITE_API_TOKEN` 
 ```sh
 npx webflow deploy
 ```
+
+## Q&A
+
+**But doesn’t Webflow provide feeds?** Why yes, but two things: First, the feed functionality is per-collection and I needed to combine two collections; Second, I wanted to provide a JSON feed.
+
+**Why would you combine the feed for two collections?** I have two primary content types on my site, but want to provide a combined feed. It’s the way my site was before I moved it to Webflow, and I wanted to keep it.
+
+**What’s this JSON feed you speak of?** [JSON Feed](https://www.jsonfeed.org/) is a modernized format for feeds. It's simpler to write and consume.
+
+**Are feeds still important?** It’s true that RSS isn’t as used as it used to be. In particular, many people moved to discovering and following content via Twitter and the other socials. But, feeds are still useful for a lot of people.
