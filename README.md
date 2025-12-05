@@ -1,6 +1,6 @@
 # Webflow Feed
 
-This is a Webflow Cloud application that generates JSON Feed and Atom feeds from Webflow CMS content for the Webflow version of [duncan.dev](https://duncan.dev) (not yet published). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
+This is a Webflow Cloud application that generates JSON Feed and Atom feeds from Webflow CMS content for the Webflow version of [duncan.dev](https://duncan.dev). It pulls items from two collections (Posts and Links) and merges them into one, using the last 10 from each.
 
 This project was created using the Webflow tool and the Astro starter template.
 
