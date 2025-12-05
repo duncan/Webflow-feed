@@ -36,7 +36,7 @@ export const GET: APIRoute = async ({ locals }) => {
       items: items.map((item) => ({
         id: item.id,
         title: item.name,
-        url: item.url,
+        url: item.id,
         ...(item.externalUrl && { external_url: item.externalUrl }),
         ...(item.image && { image: item.image }),
         ...(item.summary && { summary: item.summary }),
