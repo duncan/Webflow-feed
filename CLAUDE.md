@@ -18,6 +18,7 @@ This is a Webflow Cloud application that generates JSON Feed and Atom feeds from
 The app pulls from two collections on the Webflow site (site ID: `68cc47f2dd4fe7f3f4d6064f`):
 
 **Posts Collection** (`68d172b973fc804f36671175`):
+
 - `name` - Post title
 - `slug` - URL slug
 - `publication-date` - Publication date
@@ -26,6 +27,7 @@ The app pulls from two collections on the Webflow site (site ID: `68cc47f2dd4fe7
 - `hero-image` - Optional hero image with `{ fileId, url, alt }`
 
 **Links Collection** (`68d008f84711b007096ab168`):
+
 - `name` - Link title
 - `slug` - URL slug
 - `publication-date` - Publication date
@@ -42,7 +44,8 @@ The app pulls from two collections on the Webflow site (site ID: `68cc47f2dd4fe7
 
 ## Environment Variables
 
-Required in `.env` (local) or Webflow Cloud dashboard (production):
+Required in `.dev.vars` (local) or Webflow Cloud dashboard (production):
+
 - `WEBFLOW_SITE_ID` - Webflow site ID
 - `WEBFLOW_SITE_API_TOKEN` - API token with `cms:read` scope
 

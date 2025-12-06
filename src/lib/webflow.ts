@@ -166,12 +166,16 @@ export async function getFeedItems(
     for (const link of links) {
       const linkUrl = `https://duncan.dev/link/${link.fieldData.slug}`;
       const externalUrl = link.fieldData.url;
+      const bodyHtml = link.fieldData["post-body"] || "";
+      const linkHtml = externalUrl
+        ? `<p>Link: <a href="${externalUrl}">${externalUrl}</a></p>`
+        : "";
       items.push({
         id: linkUrl,
         url: externalUrl || linkUrl,
         name: link.fieldData.name,
         slug: link.fieldData.slug,
-        contentHtml: link.fieldData["post-body"],
+        contentHtml: bodyHtml + linkHtml,
         externalUrl: externalUrl,
         pubDate: new Date(link.fieldData["publication-date"] || Date.now()),
         collection: "links",
